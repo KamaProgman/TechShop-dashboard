@@ -1,4 +1,4 @@
-import { Input } from "./ui/input";
+import { Input } from "../ui/input";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -6,8 +6,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
-import { Button } from "./ui/button";
+} from "../ui/dropdown-menu";
+import { Button } from "../ui/button";
 
 export function Header({
   setIsSidebarOpen,
