@@ -20,7 +20,7 @@ export function Sidebar({ isSidebarOpen }: { isSidebarOpen: boolean }) {
         </a>
         <a
           className="flex items-center px-6 py-2 text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700"
-          href="#"
+          href="/orders"
         >
           <ShoppingCart className="h-5 w-5 mr-3" />
           Orders

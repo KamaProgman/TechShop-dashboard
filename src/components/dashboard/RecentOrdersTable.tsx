@@ -1,3 +1,4 @@
+import { Badge } from "../ui/badge";
 import {
   Table,
   TableBody,
@@ -38,11 +39,11 @@ export function RecentOrdersTable() {
   const statusStyles = (status: string) => {
     switch (status) {
       case "Completed":
-        return "bg-green-100 text-green-800";
+        return "success";
       case "Pending":
-        return "bg-gray-100 text-gray-800";
+        return "secondary";
       default:
-        return "bg-red-100 text-red-800";
+        return "danger";
     }
   };
 
@@ -66,13 +67,12 @@ export function RecentOrdersTable() {
             <TableCell>{order.product}</TableCell>
             <TableCell>{order.date}</TableCell>
             <TableCell>
-              <span
-                className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${statusStyles(
-                  order.status
-                )}`}
+              <Badge
+                variant={statusStyles(order.status)}
+                className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full`}
               >
                 {order.status}
-              </span>
+              </Badge>
             </TableCell>
             <TableCell className="text-right">{order.amount}</TableCell>
           </TableRow>
