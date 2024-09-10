@@ -48,7 +48,7 @@ export function RecentOrdersTable() {
   };
 
   return (
-    <Table className="min-w-full bg-white border rounded-xl shadow-md">
+    <Table className="min-w-full bg-white border shadow-md">
       <TableHeader>
         <TableRow className="bg-gray-50">
           <TableHead>Order ID</TableHead>

@@ -5,15 +5,22 @@ interface MetricsCardProps {
   title: string;
   value: string;
   change: string;
+  path: string;
   Icon: React.ComponentType<{ className?: string }>;
 }
 
-export function MetricsCard({ title, value, change, Icon }: MetricsCardProps) {
+export function MetricsCard({
+  title,
+  value,
+  change,
+  Icon,
+  path,
+}: MetricsCardProps) {
   const navigate = useNavigate(); // Initialize the useNavigate hook
 
   return (
     <Card
-      onClick={() => navigate("/products")}
+      onClick={() => navigate(path)}
       className="transition-transform cursor-pointer group duration-200 ease-in-out hover:shadow-lg hover:translate-y-1 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-blue-600 dark:hover:text-blue-400"
     >
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">

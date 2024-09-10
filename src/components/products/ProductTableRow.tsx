@@ -1,24 +1,24 @@
 import { FilePen, Trash } from "lucide-react";
 import { Button } from "../ui/button";
 import { TableCell, TableRow } from "../ui/table";
-import { products } from "../../pages/products";
+import { Product } from "../../pages/products";
 
-export function ProductRow({ product }: { product: (typeof products)[0] }) {
+function ProductTableRow({ category, image, name, price, stock }: Product) {
   return (
     <TableRow>
       <TableCell>
         <img
-          src={product.image}
-          alt={product.name}
+          src={image}
+          alt={name}
           width={64}
           height={64}
           className="rounded-md object-cover"
         />
       </TableCell>
-      <TableCell className="font-medium">{product.name}</TableCell>
-      <TableCell>{product.category}</TableCell>
-      <TableCell>{product.price}</TableCell>
-      <TableCell>{product.stock}</TableCell>
+      <TableCell className="font-medium">{name}</TableCell>
+      <TableCell>{category}</TableCell>
+      <TableCell>{price}</TableCell>
+      <TableCell>{stock}</TableCell>
       <TableCell>
         <div className="flex items-center justify-end gap-2">
           <Button variant="ghost" className="bg-transparent border-0">
@@ -37,3 +37,5 @@ export function ProductRow({ product }: { product: (typeof products)[0] }) {
     </TableRow>
   );
 }
+
+export default ProductTableRow;
