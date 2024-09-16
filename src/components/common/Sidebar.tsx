@@ -11,7 +11,7 @@ const SidebarItems = [
 export const Sidebar = memo(({ isSidebarOpen }: { isSidebarOpen: boolean }) => (
   <aside
     className={`${isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-      } fixed inset-y-0 left-0 z-50 w-64 bg-white dark:bg-gray-800 transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0`}
+      } fixed inset-y-0 left-0 z-50 w-56 bg-white dark:bg-gray-800 transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0`}
   >
     <div className="flex items-center justify-center h-16 bg-indigo-500 text-white">
       <span className="text-2xl font-semibold">E-Shop Admin</span>

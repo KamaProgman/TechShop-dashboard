@@ -12,4 +12,5 @@ export interface IOrder {
   paymentMethod: PaymentMethod;
   totalPrice: number;
   userId: IdType;
+  status: number;
 }

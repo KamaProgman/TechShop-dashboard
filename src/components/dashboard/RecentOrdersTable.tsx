@@ -10,35 +10,19 @@ import {
   TableRow,
 } from "../ui/table";
 
+
+enum OrderStatus {
+  Pending = 0,
+  Shipped = 1,
+  Delievered = 2,
+}
+
+const getStatusText = (status: unknown): OrderStatus => {
+  return OrderStatus[status as keyof typeof OrderStatus];
+};
+
 export function RecentOrdersTable() {
   const { data } = useOrders()
-  const orders = [
-    {
-      id: "ORD001",
-      customer: "John Doe",
-      product: "Wireless Earbuds",
-      date: "2023-06-01",
-      status: "Completed",
-      amount: "$129.99",
-    },
-    {
-      id: "ORD002",
-      customer: "Jane Smith",
-      product: "Smart Watch",
-      date: "2023-06-02",
-      status: "Pending",
-      amount: "$199.99",
-    },
-    {
-      id: "ORD003",
-      customer: "Bob Johnson",
-      product: "Laptop",
-      date: "2023-06-03",
-      status: "Canceled",
-      amount: "$999.99",
-    },
-  ];
-
 
   const statusStyles = (status: string) => {
     switch (status) {
@@ -75,7 +59,7 @@ export function RecentOrdersTable() {
                 // variant={statusStyles(order.status)}
                 className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full`}
               >
-                {/* {order.status} */}
+                {getStatusText(order.status)}
               </Badge>
             </TableCell>
             <TableCell className="text-right">{order.totalPrice}</TableCell>
