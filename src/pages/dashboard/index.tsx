@@ -1,8 +1,16 @@
 import { DollarSign, Package, ShoppingCart, Users } from "lucide-react";
 import { MetricsCard } from "../../components/dashboard/MetricsCard";
 import { RecentOrdersTable } from "../../components/dashboard/RecentOrdersTable";
+import { useProducts } from "../../lib/hooks/products";
+import { useOrders } from "../../lib/hooks/orders";
+import { log } from "console";
 
 export function Dashboard() {
+  const { data } = useOrders()
+
+  console.log(data);
+  
+
   return (
     <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 dark:bg-gray-900">
       <div className="container mx-auto px-6 py-8">
