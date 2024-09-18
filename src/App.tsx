@@ -4,8 +4,9 @@ import Products from "./pages/products";
 import Layout from "./layout/Layout";
 import Orders from "./pages/orders";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import Customers from "./pages/customers";
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient();
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             <Route path="/" element={<Dashboard />} />
             <Route path="/products" element={<Products />} />
             <Route path="/orders" element={<Orders />} />
+            <Route path="/customers" element={<Customers />} />
           </Routes>
         </Layout>
       </Router>

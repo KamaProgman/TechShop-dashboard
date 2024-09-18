@@ -1,19 +1,19 @@
 import { IdType } from "../types";
 import makeRequest from "./makeRequest";
 
-const url = "/users"
+const url = "/users";
 
 class UsersApi {
-  getAll() {
-    makeRequest(url)
+  async getAll() {
+    return makeRequest({ url });
   }
 
   deleteUser(id: IdType) {
     makeRequest({
       url: `${url}/${id}`,
-      method: "DELETE"
-    })
+      method: "DELETE",
+    });
   }
 }
 
-export default UsersApi
+export default UsersApi;

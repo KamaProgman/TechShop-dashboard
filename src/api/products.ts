@@ -1,21 +1,20 @@
 import { IProduct } from "../types/product";
 import makeRequest from "./makeRequest";
 
-const url = "/products"
+const url = "/products";
 
 class ProductApi {
-  async getAll() {
-    const res = await makeRequest({ url })
-    return res
+  getAll() {
+    return makeRequest({ url });
   }
 
   addNewProduct(data: IProduct) {
     return makeRequest({
       url,
       method: "POST",
-      data
-    })
+      data,
+    });
   }
 }
 
-export default new ProductApi()
+export default new ProductApi();

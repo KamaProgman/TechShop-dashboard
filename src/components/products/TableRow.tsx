@@ -1,34 +1,30 @@
-import { Button } from "../ui/button";
-import { Badge } from "../ui/badge";
 import { FilePen, Trash } from "lucide-react";
+import { Button } from "../ui/button";
 import { TableCell, TableRow } from "../ui/table";
+import { IProduct } from "../../types/product";
 
-interface OrderTableRowProps {
-  orderId: string;
-  customer: string;
-  date: string;
-  total: string;
-  status: string;
-  statusVariant: "success" | "danger" | "secondary";
-}
-
-export function OrderTableRow({
-  orderId,
-  customer,
-  date,
-  total,
-  status,
-  statusVariant,
-}: OrderTableRowProps) {
+function ProductTableRow({
+  category,
+  images_links,
+  price,
+  quantity,
+  title,
+}: IProduct) {
   return (
     <TableRow>
-      <TableCell>{orderId}</TableCell>
-      <TableCell>{customer}</TableCell>
-      <TableCell>{date}</TableCell>
-      <TableCell>{total}</TableCell>
       <TableCell>
-        <Badge variant={statusVariant}>{status}</Badge>
+        <img
+          src={images_links[0]}
+          alt="Product Image"
+          width={55}
+          height={55}
+          className="rounded-md object-cover"
+        />
       </TableCell>
+      <TableCell className="font-medium">{title}</TableCell>
+      <TableCell>{category.title}</TableCell>
+      <TableCell>{price}$</TableCell>
+      <TableCell className="text-center">{quantity}</TableCell>
       <TableCell>
         <div className="flex items-center justify-end gap-2">
           <Button variant="ghost" className="bg-transparent border-0">
@@ -47,3 +43,5 @@ export function OrderTableRow({
     </TableRow>
   );
 }
+
+export default ProductTableRow;

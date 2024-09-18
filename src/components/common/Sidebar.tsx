@@ -5,7 +5,7 @@ const SidebarItems = [
   { href: "/", label: "Dashboard", Icon: BarChart },
   { href: "/orders", label: "Orders", Icon: ShoppingCart },
   { href: "/products", label: "Products", Icon: Package },
-  { href: "#", label: "Customers", Icon: Users },
+  { href: "/customers", label: "Customers", Icon: Users },
 ];
 
 export const Sidebar = ({ isSidebarOpen }: { isSidebarOpen: boolean }) => {

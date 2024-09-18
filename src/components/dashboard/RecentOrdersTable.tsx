@@ -1,4 +1,4 @@
-import { useOrders } from "../../lib/hooks/orders";
+import { useCustomers } from "../../lib/hooks/customers";
 import { IOrder } from "../../types/order";
 import { Badge } from "../ui/badge";
 import {
@@ -11,7 +11,7 @@ import {
 } from "../ui/table";
 
 export function RecentOrdersTable() {
-  const { data } = useOrders();
+  const { data } = useCustomers();
 
   return (
     <Table className="min-w-full bg-white border shadow-md">
@@ -29,7 +29,7 @@ export function RecentOrdersTable() {
         {data?.map((order: IOrder) => (
           <TableRow key={order.id} className="border-t">
             <TableCell className="font-medium">{order.id}</TableCell>
-            <TableCell>{order.userId}</TableCell>
+            <TableCell>{order.id}</TableCell>
             {/* <TableCell>{order.items}</TableCell> */}
             <TableCell>{order.paymentMethod}</TableCell>
             <TableCell>

@@ -1,5 +1,5 @@
-import { OrderStatsCard } from "../../components/orders/OrderCharts";
-import { OrderTable } from "../../components/orders/OrderTable";
+import { OrderStatsCard } from "../../components/orders/Charts";
+import { OrderTable } from "../../components/orders/Table";
 import { Button } from "../../components/ui/button";
 import { Card } from "../../components/ui/card";
 
