@@ -12,6 +12,8 @@ import { CustomerTableRow } from "./TableRow";
 export const CustomerTable = () => {
   const { data } = useCustomers();
 
+  console.log(data);
+
   return (
     <Table>
       <TableHeader className="bg-gray-50">
