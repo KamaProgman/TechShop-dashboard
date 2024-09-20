@@ -18,7 +18,7 @@ export default function Customers() {
           <CustomersGraph />
         </div>
         <div>
-          <Card className="rounded-none">
+          <Card className="rounded-none w-full mb-10">
             <CustomerTable />
           </Card>
         </div>
@@ -26,3 +26,4 @@ export default function Customers() {
     </div>
   );
 }
+  
