@@ -5,15 +5,20 @@ const url = "/users"
 
 class UsersApi {
   getAll() {
-    makeRequest(url)
+    return makeRequest(url)
+  }
+
+  getUser(userId: IdType) {
+    return makeRequest(url + `/${userId}`)
   }
 
   deleteUser(id: IdType) {
-    makeRequest({
+    return makeRequest({
       url: `${url}/${id}`,
       method: "DELETE"
     })
   }
+
 }
 
-export default UsersApi
+export default new UsersApi

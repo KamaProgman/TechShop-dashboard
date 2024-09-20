@@ -1,15 +1,16 @@
 import { DollarSign, Package, ShoppingCart, Users } from "lucide-react";
 import { MetricsCard } from "../../components/dashboard/MetricsCard";
-import { RecentOrdersTable } from "../../components/dashboard/RecentOrdersTable";
-import { useProducts } from "../../lib/hooks/products";
 import { useOrders } from "../../lib/hooks/orders";
-import { log } from "console";
+import { IOrder } from "../../types/order";
+import { OrdersTable } from "../../components/dashboard/OrdersTable";
+import { getDataForLastMonth } from "../../utils/getForLastMonth";
+import { getTotalItems } from "../../utils/getTotalItems";
 
 export function Dashboard() {
   const { data } = useOrders()
-
-  console.log(data);
-  
+  const newOrders = getDataForLastMonth<IOrder>(data || [])
+  const totalRevenue = data?.reduce((sum: number, order: IOrder) => sum + order.totalPrice, 0) ?? 0
+  const totalItems = getTotalItems(newOrders ?? [])
 
   return (
     <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 dark:bg-gray-900">
@@ -21,41 +22,40 @@ export function Dashboard() {
         <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <MetricsCard
             title="Total Revenue"
-            value="$45,231.89"
-            change="+20.1% from last month"
+            value={totalRevenue + "$"}
+            change="for last month"
             Icon={DollarSign}
             path="/"
           />
           <MetricsCard
             title="Orders"
-            value="1,200"
-            change="-5.5% from last week"
+            value={newOrders?.length}
+            change="for last month"
             Icon={ShoppingCart}
             path="/orders"
           />
           <MetricsCard
             title="Products Sold"
-            value="120"
-            change="+3.1% from last month"
+            value={totalItems}
+            change="for last month"
             Icon={Package}
             path="/products"
           />
           <MetricsCard
             title="New Customers"
             value="45"
-            change="+10% from last month"
+            change="for last month"
             Icon={Users}
             path="/customers"
           />
         </div>
 
-        {/* Recent Orders */}
         <div className="mt-8">
           <h4 className="text-gray-700 dark:text-gray-200 text-xl font-medium">
             Recent Orders
           </h4>
           <div className="mt-4">
-            <RecentOrdersTable />
+            <OrdersTable data={newOrders} />
           </div>
         </div>
       </div>
