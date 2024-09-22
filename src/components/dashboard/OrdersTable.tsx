@@ -62,7 +62,7 @@ export function OrdersTable({ data }: props) {
                     ITEMS
                   </div>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-80 bg-white shadow-lg rounded-md p-4">
+                <DropdownMenuContent className="w-80 bg-white shadow-lg rounded-md p-4 max-h-96 overflow-y-scroll">
                   <h4 className="font-semibold mb-2">Order Items:</h4>
                   <ul>
                     {order.items.map((item) => (
