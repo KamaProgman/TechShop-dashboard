@@ -22,6 +22,7 @@ class UsersApi {
       data,
     });
   }
+
 }
 
 export default UsersApi;

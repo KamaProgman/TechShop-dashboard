@@ -53,7 +53,7 @@ export class FirestoreTransformer {
     return {
       id: doc?.name?.split("/").pop(),
       ...FirestoreTransformer.transformFields(doc.fields),
-      createTime: doc.createTime,
+      createdAt: doc.createTime,  // Добавляем ключ createdAt
       updateTime: doc.updateTime,
     };
   }
@@ -103,3 +103,4 @@ export class FirestoreTransformer {
     );
   }
 }
+

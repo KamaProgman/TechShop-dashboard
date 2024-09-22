@@ -22,7 +22,7 @@ export function OrderStatsCard({
     <Card className="flex flex-col">
       <CardHeader>
         <CardTitle>{title}</CardTitle>
-        <CardDescription>{description}</CardDescription>
+        <CardDescription className="text-xl">{description}</CardDescription>
       </CardHeader>
       <CardContent>{children}</CardContent>
     </Card>
