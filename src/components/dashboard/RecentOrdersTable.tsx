@@ -1,4 +1,4 @@
-import { useCustomers } from "../../lib/hooks/customers";
+import { useOrders } from "../../lib/hooks/orders";
 import { IOrder } from "../../types/order";
 import { Badge } from "../ui/badge";
 import {
@@ -10,8 +10,29 @@ import {
   TableRow,
 } from "../ui/table";
 
+enum OrderStatus {
+  Pending = 0,
+  Shipped = 1,
+  Delievered = 2,
+}
+
+const getStatusText = (status: unknown): OrderStatus => {
+  return OrderStatus[status as keyof typeof OrderStatus];
+};
+
 export function RecentOrdersTable() {
-  const { data } = useCustomers();
+  const { data } = useOrders();
+
+  const statusStyles = (status: string) => {
+    switch (status) {
+      case "Completed":
+        return "success";
+      case "Pending":
+        return "secondary";
+      default:
+        return "danger";
+    }
+  };
 
   return (
     <Table className="min-w-full bg-white border shadow-md">
@@ -37,7 +58,7 @@ export function RecentOrdersTable() {
                 // variant={statusStyles(order.status)}
                 className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full`}
               >
-                {/* {order.status} */}
+                {getStatusText(order.status)}
               </Badge>
             </TableCell>
             <TableCell className="text-right">{order.totalPrice}</TableCell>

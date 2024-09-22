@@ -16,5 +16,6 @@ export interface IOrder {
   address: Address;
   paymentMethod: PaymentMethod;
   totalPrice: number;
-  user: IOrderUser;
+  userId: IdType;
+  status: number;
 }

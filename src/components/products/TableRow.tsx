@@ -24,7 +24,7 @@ function ProductTableRow({
       <TableCell className="font-medium">{title}</TableCell>
       <TableCell>{category.title}</TableCell>
       <TableCell>{price}$</TableCell>
-      <TableCell className="text-center">{quantity}</TableCell>
+      <TableCell className="text-center">{quantity}шт</TableCell>
       <TableCell>
         <div className="flex items-center justify-end gap-2">
           <Button variant="ghost" className="bg-transparent border-0">
