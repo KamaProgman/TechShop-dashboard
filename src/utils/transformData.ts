@@ -34,8 +34,8 @@ export class FirestoreTransformer {
     );
     return key
       ? FirestoreTransformer.transformFunctions[key](
-        field[key as keyof FirestoreValue]
-      )
+          field[key as keyof FirestoreValue]
+        )
       : null;
   }
 
@@ -53,7 +53,7 @@ export class FirestoreTransformer {
     return {
       id: doc?.name?.split("/").pop(),
       ...FirestoreTransformer.transformFields(doc.fields),
-      createTime: doc.createTime,
+      createdAt: doc.createTime, // Добавляем ключ createdAt
       updateTime: doc.updateTime,
     };
   }

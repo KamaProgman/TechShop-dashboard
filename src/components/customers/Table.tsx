@@ -5,12 +5,12 @@ import {
   TableHead,
   TableBody,
 } from "../../components/ui/table";
-import { useCustomers } from "../../lib/hooks/customers";
+import { useUsers } from "../../lib/hooks/users";
 import { IUser } from "../../types/customer";
 import { CustomerTableRow } from "./TableRow";
 
 export const CustomerTable = () => {
-  const { data } = useCustomers();
+  const { data } = useUsers();
 
   console.log(data);
 
