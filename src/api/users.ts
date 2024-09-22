@@ -1,19 +1,27 @@
 import { IdType } from "../types";
 import makeRequest from "./makeRequest";
 
-const url = "/users"
+const url = "/users";
 
 class UsersApi {
-  getAll() {
-    makeRequest(url)
+  async getAll() {
+    return makeRequest({ url });
   }
 
   deleteUser(id: IdType) {
-    makeRequest({
+    return makeRequest({
       url: `${url}/${id}`,
-      method: "DELETE"
-    })
+      method: "DELETE",
+    });
+  }
+
+  editUser(id: IdType, data: Partial<any>) {
+    return makeRequest({
+      url: `${url}/${id}`,
+      method: "PATCH",
+      data,
+    });
   }
 }
 
-export default UsersApi
+export default UsersApi;

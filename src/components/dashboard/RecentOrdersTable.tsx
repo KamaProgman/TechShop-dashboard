@@ -10,7 +10,6 @@ import {
   TableRow,
 } from "../ui/table";
 
-
 enum OrderStatus {
   Pending = 0,
   Shipped = 1,
@@ -22,7 +21,7 @@ const getStatusText = (status: unknown): OrderStatus => {
 };
 
 export function RecentOrdersTable() {
-  const { data } = useOrders()
+  const { data } = useOrders();
 
   const statusStyles = (status: string) => {
     switch (status) {
@@ -51,7 +50,7 @@ export function RecentOrdersTable() {
         {data?.map((order: IOrder) => (
           <TableRow key={order.id} className="border-t">
             <TableCell className="font-medium">{order.id}</TableCell>
-            <TableCell>{order.userId}</TableCell>
+            <TableCell>{order.id}</TableCell>
             {/* <TableCell>{order.items}</TableCell> */}
             <TableCell>{order.paymentMethod}</TableCell>
             <TableCell>

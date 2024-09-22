@@ -1,21 +1,32 @@
+import { AxiosResponse } from "axios";
 import { IProduct } from "../types/product";
 import makeRequest from "./makeRequest";
 
-const url = "/products"
+const url = "/products";
 
 class ProductApi {
-  async getAll() {
-    const res = await makeRequest({ url })
-    return res
+  // Получение всех продуктов
+  getAll() {
+    return makeRequest({ url });
   }
 
-  addNewProduct(data: IProduct) {
+  updateProductById(
+    id: string,
+    data: Partial<IProduct>
+  ): Promise<AxiosResponse<IProduct>> {
     return makeRequest({
-      url,
-      method: "POST",
-      data
-    })
+      url: `${url}/${id}`,
+      method: "PATCH",
+      data,
+    });
+  }
+
+  deleteProductById(id: string): Promise<AxiosResponse<void>> {
+    return makeRequest({
+      url: `${url}/${id}`,
+      method: "DELETE",
+    });
   }
 }
 
-export default new ProductApi()
+export default new ProductApi();

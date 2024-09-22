@@ -2,32 +2,33 @@ import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { FilePen, Trash } from "lucide-react";
 import { TableCell, TableRow } from "../ui/table";
+import { IOrder } from "../../types/order";
 
-interface OrderTableRowProps {
-  orderId: string;
-  customer: string;
-  date: string;
-  total: string;
-  status: string;
-  statusVariant: "success" | "danger" | "secondary";
-}
+// interface OrderTableRowProps {
+//   orderId: string;
+//   customer: string;
+//   date: string;
+//   total: string;
+//   status: string;
+//   statusVariant: "success" | "danger" | "secondary";
+// }
 
 export function OrderTableRow({
-  orderId,
-  customer,
-  date,
-  total,
-  status,
-  statusVariant,
-}: OrderTableRowProps) {
+  // address,
+  id,
+  // items,
+  // paymentMethod,
+  totalPrice,
+  userId,
+}: IOrder) {
   return (
     <TableRow>
-      <TableCell>{orderId}</TableCell>
-      <TableCell>{customer}</TableCell>
-      <TableCell>{date}</TableCell>
-      <TableCell>{total}</TableCell>
+      <TableCell>{id}</TableCell>
+      <TableCell>{userId}</TableCell>
+      <TableCell>date</TableCell>
+      <TableCell>{totalPrice}</TableCell>
       <TableCell>
-        <Badge variant={statusVariant}>{status}</Badge>
+        <Badge variant={"default"}>{status}</Badge>
       </TableCell>
       <TableCell>
         <div className="flex items-center justify-end gap-2">
