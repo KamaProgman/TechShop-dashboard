@@ -2,6 +2,8 @@ import { FilePen, Trash } from "lucide-react";
 import { Button } from "../ui/button";
 import { TableCell, TableRow } from "../ui/table";
 import { IProduct } from "../../types/product";
+import DeleteModal from "./DeleteModal";
+import ProductApi from '../../api/products'
 
 function ProductTableRow({
   category,
@@ -9,6 +11,7 @@ function ProductTableRow({
   price,
   quantity,
   title,
+  id
 }: IProduct) {
   return (
     <TableRow>
@@ -31,13 +34,7 @@ function ProductTableRow({
             <FilePen className="w-4 h-4" />
             <span className="sr-only">Edit</span>
           </Button>
-          <Button
-            variant="ghost"
-            className="text-destructive bg-transparent border-0"
-          >
-            <Trash className="w-4 h-4" />
-            <span className="sr-only">Delete</span>
-          </Button>
+          <DeleteModal id={id} deleteFunction={ProductApi.deleteProductById} queryKey="products" />
         </div>
       </TableCell>
     </TableRow>

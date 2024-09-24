@@ -4,7 +4,7 @@ import { useOrders } from "../../lib/hooks/orders";
 import { IOrder } from "../../types/order";
 import { OrdersTable } from "../../components/dashboard/OrdersTable";
 import { getDataForLastMonth } from "../../utils/getForLastMonth";
-import { getTotalItems } from "../../utils/getTotalItems";
+import { getItems, getTotalItems } from "../../utils/getTotalItems";
 
 export function Dashboard() {
   const { data } = useOrders();
@@ -13,6 +13,9 @@ export function Dashboard() {
     data?.reduce((sum: number, order: IOrder) => sum + order.totalPrice, 0) ??
     0;
   const totalItems = getTotalItems(newOrders ?? []);
+  const products = getItems(newOrders)
+
+  console.log(products);
 
   return (
     <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 dark:bg-gray-900">

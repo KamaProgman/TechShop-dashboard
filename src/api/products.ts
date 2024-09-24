@@ -1,11 +1,11 @@
 import { AxiosResponse } from "axios";
 import { IProduct } from "../types/product";
 import makeRequest from "./makeRequest";
+import { IdType } from "../types";
 
 const url = "/products";
 
 class ProductApi {
-  // Получение всех продуктов
   getAll() {
     return makeRequest({ url });
   }
@@ -21,7 +21,7 @@ class ProductApi {
     });
   }
 
-  deleteProductById(id: string): Promise<AxiosResponse<void>> {
+  deleteProductById(id: IdType) {
     return makeRequest({
       url: `${url}/${id}`,
       method: "DELETE",
