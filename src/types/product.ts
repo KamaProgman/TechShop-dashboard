@@ -5,7 +5,7 @@ export interface IProductCategory {
   title: string;
 }
 
-interface IProductAttributes {
+export interface IProductAttributes {
   color: string;
   specific?: string[];
 }

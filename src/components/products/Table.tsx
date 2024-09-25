@@ -12,8 +12,6 @@ import { IProduct } from "../../types/product";
 const ProductsTable = () => {
   const { data } = useProducts();
 
-  console.log(data);
-
   return (
     <Table>
       <TableHeader className="bg-gray-50">
