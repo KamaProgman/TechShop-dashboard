@@ -21,6 +21,17 @@ export interface IProduct {
   quantity: number;
 }
 
+export type ProductFormValues = {
+  title: string;
+  description: string;
+  color: string;
+  specific: string;
+  category: string;
+  image: File[];
+  price: number;
+  quantity: number;
+};
+
 export interface ICartProduct extends IProduct {
   cartQuantity: number;
 }

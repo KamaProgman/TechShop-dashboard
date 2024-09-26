@@ -7,15 +7,9 @@ import {
   DialogTitle,
 } from "../../components/ui/dialog";
 import AddProductForm from "./AddProductForm";
-import { IProduct } from "../../types/product";
 
 const AddProductDialog = () => {
   const [open, setOpen] = useState(false);
-
-  const handleAddProduct = (data: any) => {
-    console.log("Product added:", data);
-    setOpen(false);
-  };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -24,7 +18,7 @@ const AddProductDialog = () => {
       </DialogTrigger>
       <DialogContent>
         <DialogTitle>Add New Product</DialogTitle>
-        <AddProductForm onSubmit={handleAddProduct} />
+        <AddProductForm />
       </DialogContent>
     </Dialog>
   );

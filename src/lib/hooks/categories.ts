@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import CategoriesApi from "../../api/categories";
 import { FirestoreTransformer } from "../../utils/transformData";
-import { ICategory } from "../../types/categories";
+import { ICategory, ICategoryChild } from "../../types/categories";
 
 export function useCategories() {
   return useQuery<ICategory[], Error>({

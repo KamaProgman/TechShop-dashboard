@@ -9,29 +9,14 @@ import {
   SelectItem,
 } from "../../components/ui/select";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { IProduct } from "../../types/product";
+import { IProduct, ProductFormValues } from "../../types/product";
 import ProductsApi from "../../api/products";
 import { getSubcategories, useCategories } from "../../lib/hooks/categories";
 import { ICategory } from "../../types/categories";
 import { CloudUpload } from "lucide-react";
 import { FirestoreTransformer } from "../../utils/transformData";
 
-type ProductFormValues = {
-  title: string;
-  description: string;
-  color: string;
-  specific: string;
-  category: string;
-  image: FileList;
-  price: number;
-  quantity: number;
-};
-
-const AddProductForm = ({
-  onSubmit,
-}: {
-  onSubmit: SubmitHandler<ProductFormValues>;
-}) => {
+const AddProductForm = () => {
   const {
     register,
     handleSubmit,
@@ -61,16 +46,29 @@ const AddProductForm = ({
     },
   });
 
-  const handleFormSubmit: SubmitHandler<ProductFormValues> = (
+  const handleFormSubmit: SubmitHandler<ProductFormValues> = async (
     data: ProductFormValues
   ) => {
-    const res = categories?.find(
-      (category: ICategory) => category.title === data.category
-    );
+    const res = categories
+      ?.flatMap((category: ICategory) => category.subcategories)
+      .find((subcategory) => subcategory.title === data.category);
 
-    console.log(data);
+    const imageLinks: string[] = [];
 
-    console.log(res);
+    const readFile = (file: File): Promise<string> => {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result as string);
+        reader.onerror = (error) => reject(error);
+      });
+    };
+
+    const imageFiles = Array.from(data.image);
+    const imagePromises = imageFiles.map((file) => readFile(file));
+
+    const results = await Promise.all(imagePromises);
+    imageLinks.push(...results);
 
     const newProduct: Partial<IProduct> = {
       title: data.title,
@@ -83,7 +81,7 @@ const AddProductForm = ({
         color: data.color,
         specific: [data.specific],
       },
-      images_links: [],
+      images_links: imageLinks,
       price: data.price,
       quantity: data.quantity,
     };
@@ -184,6 +182,8 @@ const AddProductForm = ({
           type="file"
           {...register("image")}
           id="image"
+          multiple // Allow multiple files
+          accept="image/jpeg,image/png" // Accept only JPEG and PNG files
           className="absolute w-full opacity-0 cursor-pointer"
         />
       </div>

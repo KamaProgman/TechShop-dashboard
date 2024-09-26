@@ -12,7 +12,9 @@ class ProductApi {
     return makeRequest({
       url,
       method: "POST",
-      data,
+      data: {
+      fields: data,
+      },
     });
   }
 }
