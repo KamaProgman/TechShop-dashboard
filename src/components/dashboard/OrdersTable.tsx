@@ -88,7 +88,9 @@ export function OrdersTable({ data }: props) {
                 </DropdownMenuContent>
               </DropdownMenu>
             </TableCell>
-            <TableCell>2024-06-05</TableCell>
+            <TableCell>
+              {new Date(order.createdAt).toISOString().split("T")[0]}
+            </TableCell>
             <TableCell>
               <Badge
                 variant={statusStyles(order.status)}
