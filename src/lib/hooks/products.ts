@@ -1,10 +1,10 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import ProductsApi from "../../api/products";
 import { FirestoreTransformer } from "../../utils/transformData";
 import { IProduct } from "../../types/product";
 
-interface FirestoreResponse {
-  documents: any[];
+interface IProductWithDate extends IProduct {
+  createdAt: string
 }
 
 export function useProducts() {
@@ -12,10 +12,12 @@ export function useProducts() {
     queryKey: ["products"],
     queryFn: async () => {
       const response = await ProductsApi.getAll();
-      const transformedData = FirestoreTransformer.transformFirebaseData(
+      const transformedData: IProductWithDate[] = FirestoreTransformer.transformFirebaseData(
         response.data.documents
       );
-      return transformedData;
+      return transformedData.sort((a, b) => {
+        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+      });
     },
   });
 }

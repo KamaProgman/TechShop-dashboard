@@ -12,7 +12,7 @@ interface props {
   data: IProduct[]
 }
 
-const ProductsTable = ({data}: props) => {
+const ProductsTable = ({ data }: props) => {
 
   return (
     <Table>

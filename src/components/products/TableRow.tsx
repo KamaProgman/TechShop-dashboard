@@ -19,9 +19,7 @@ function ProductTableRow({
         <img
           src={images_links[0]}
           alt="Product Image"
-          width={55}
-          height={55}
-          className="rounded-md object-cover"
+          className="w-[60px] h-[72px] rounded-sm object-cover"
         />
       </TableCell>
       <TableCell className="font-medium">{title}</TableCell>

@@ -1,4 +1,3 @@
-import { AxiosResponse } from "axios";
 import { IProduct } from "../types/product";
 import makeRequest from "./makeRequest";
 import { IdType } from "../types";
@@ -10,14 +9,13 @@ class ProductApi {
     return makeRequest({ url });
   }
 
-  updateProductById(
-    id: string,
-    data: Partial<IProduct>
-  ): Promise<AxiosResponse<IProduct>> {
+  addNewProduct(data: Partial<IProduct>) {
     return makeRequest({
-      url: `${url}/${id}`,
-      method: "PATCH",
-      data,
+      url,
+      method: "POST",
+      data: {
+        fields: data,
+      },
     });
   }
 

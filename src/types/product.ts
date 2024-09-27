@@ -5,7 +5,7 @@ export interface IProductCategory {
   title: string;
 }
 
-interface IProductAttributes {
+export interface IProductAttributes {
   color: string;
   specific?: string[];
 }
@@ -20,6 +20,19 @@ export interface IProduct {
   price: number;
   quantity: number;
 }
+
+export type ProductFormValues = {
+  title: string;
+  description: string;
+  color: string;
+  specific: string;
+  category: string;
+  image1: File[];
+  image2: File[];
+  image3: File[];
+  price: number;
+  quantity: number;
+};
 
 export interface ICartProduct extends IProduct {
   cartQuantity: number;

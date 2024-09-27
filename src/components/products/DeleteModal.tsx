@@ -38,7 +38,7 @@ const DeleteModal = ({ id, deleteFunction, queryKey }: props) => {
 
     if (isOpen) {
       setIsDeleteEnabled(false);
-      setCountdown(5);
+      setCountdown(3);
 
       timer = setInterval(() => {
         setCountdown((prev) => {
@@ -77,7 +77,7 @@ const DeleteModal = ({ id, deleteFunction, queryKey }: props) => {
             Cancel
           </Button>
           <Button
-            variant="destructive"
+            variant="default"
             onClick={handleDelete}
             disabled={!isDeleteEnabled}>
             {isDeleteEnabled ? "Delete" : `Delete in ${countdown} sec`}
