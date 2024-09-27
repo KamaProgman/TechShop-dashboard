@@ -27,7 +27,9 @@ export type ProductFormValues = {
   color: string;
   specific: string;
   category: string;
-  image: File[];
+  image1: File[];
+  image2: File[];
+  image3: File[];
   price: number;
   quantity: number;
 };
