@@ -13,7 +13,7 @@ class ProductApi {
       url,
       method: "POST",
       data: {
-      fields: data,
+        fields: data,
       },
     });
   }

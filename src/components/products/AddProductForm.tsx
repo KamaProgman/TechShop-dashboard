@@ -13,8 +13,8 @@ import { IProduct, ProductFormValues } from "../../types/product";
 import ProductsApi from "../../api/products";
 import { getSubcategories, useCategories } from "../../lib/hooks/categories";
 import { ICategory } from "../../types/categories";
-import { CloudUpload } from "lucide-react";
 import { FirestoreTransformer } from "../../utils/transformData";
+import FileUpload from "./FileUpload";
 
 const AddProductForm = () => {
   const {
@@ -64,11 +64,18 @@ const AddProductForm = () => {
       });
     };
 
-    const imageFiles = Array.from(data.image);
-    const imagePromises = imageFiles.map((file) => readFile(file));
+    const imageFields = [data.image1, data.image2, data.image3];
 
-    const results = await Promise.all(imagePromises);
-    imageLinks.push(...results);
+    console.log(data);
+
+    for (const imageField of imageFields) {
+      if (imageField && imageField.length > 0) {
+        const imageFiles = Array.from(imageField);
+        const imagePromises = imageFiles.map((file) => readFile(file));
+        const results = await Promise.all(imagePromises);
+        imageLinks.push(...results);
+      }
+    }
 
     const newProduct: Partial<IProduct> = {
       title: data.title,
@@ -167,25 +174,10 @@ const AddProductForm = () => {
         </Select>
       </div>
 
-      <div className="flex-1">
-        <label
-          htmlFor="image"
-          className="flex flex-col items-center justify-center p-4 mt-1 text-center border-2 border-dashed border-[rgb(204,207,211)] rounded-lg cursor-pointer transition duration-300 hover:border-[#85858a]"
-        >
-          <CloudUpload size={24} />
-          <span className="mt-3 mb-1 font-medium">
-            Выберите файл или перетащите его сюда
-          </span>
-          <span className="text-sm text-[#6E7076]">JPEG или PNG до 5 MB</span>
-        </label>
-        <Input
-          type="file"
-          {...register("image")}
-          id="image"
-          multiple // Allow multiple files
-          accept="image/jpeg,image/png" // Accept only JPEG and PNG files
-          className="absolute w-full opacity-0 cursor-pointer"
-        />
+      <div className="flex flex-3 gap-2">
+        <FileUpload register={register} fieldName="image1" />
+        <FileUpload register={register} fieldName="image2" />
+        <FileUpload register={register} fieldName="image3" />
       </div>
 
       <div className="flex flex-col md:flex-row gap-4">
