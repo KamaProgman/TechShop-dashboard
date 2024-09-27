@@ -13,7 +13,7 @@ const FileUpload = ({
       htmlFor={fieldName}
       className="flex flex-col items-center justify-center p-2 mt-1 text-center border-2 border-dashed border-[rgb(204,207,211)] rounded-lg cursor-pointer transition duration-300 hover:border-[#85858a]"
     >
-      <CloudUpload size={24} />
+      <CloudUpload size={20} />
       <span className="mt-1 mb-1 font-medium text-xs">
         Выберите файл или перетащите его сюда
       </span>
