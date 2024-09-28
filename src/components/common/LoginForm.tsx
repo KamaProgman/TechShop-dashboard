@@ -6,6 +6,7 @@ import { DialogTitle } from "@radix-ui/react-dialog";
 import Login from "../../api/login";
 import { useContext } from "react";
 import UserContext from "../../context/UserContext";
+import { toast } from "../../lib/hooks/use-toast";
 
 interface LoginFormValues {
   email: string;
@@ -24,6 +25,8 @@ const LoginForm = () => {
 
   const handleLogin: SubmitHandler<LoginFormValues> = async (data) => {
     const user = await Login(data.email, data.password);
+    console.log(user);
+
     if (user) {
       setUser(user);
       reset();
@@ -53,7 +56,6 @@ const LoginForm = () => {
               },
             })}
             placeholder="Enter your email"
-            className="w-full p-2"
           />
           {errors.email && (
             <span className="text-red-600 text-sm">{errors.email.message}</span>
@@ -75,7 +77,6 @@ const LoginForm = () => {
               },
             })}
             placeholder="Enter your password"
-            className="w-full p-2"
           />
           {errors.password && (
             <span className="text-red-600 text-sm">
@@ -84,7 +85,7 @@ const LoginForm = () => {
           )}
         </div>
 
-        <Button type="submit" className="mt-6">
+        <Button type="submit" className="mt-6 w-full h-fit">
           Login
         </Button>
       </form>

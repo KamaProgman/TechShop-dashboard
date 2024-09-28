@@ -2,6 +2,7 @@ import { ReactNode, useState } from "react";
 import { Sidebar } from "../components/common/Sidebar";
 import { Header } from "../components/common/Header";
 import UserContext from "../context/UserContext";
+import { Toaster } from "../components/ui/toaster";
 
 interface LayoutProps {
   children: ReactNode;
@@ -17,6 +18,7 @@ export default function Layout({ children }: LayoutProps) {
         <div className="flex-1 flex flex-col overflow-hidden">
           <Header setIsSidebarOpen={setIsSidebarOpen} />
           {children}
+          <Toaster />
         </div>
       </div>
     </UserContext.Provider>

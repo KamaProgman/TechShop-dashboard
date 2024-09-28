@@ -4,25 +4,20 @@ import { CloudUpload, Trash } from "lucide-react";
 import { uploadImages } from "../../lib/actions";
 
 interface props {
-  register: any,
-  setImagesLinks: Dispatch<SetStateAction<string[]>>
-  imagesLinks: string[]
+  register: any;
+  setImagesLinks: Dispatch<SetStateAction<string[]>>;
+  imagesLinks: string[];
 }
 
-const FileUpload = ({
-  register,
-  setImagesLinks,
-  imagesLinks
-}: props) => {
-
+const FileUpload = ({ register, setImagesLinks, imagesLinks }: props) => {
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files
+    const files = e.target.files;
     if (files) {
-      const newLinks = await uploadImages(files)
+      const newLinks = await uploadImages(files);
 
-      setImagesLinks((prevLinks) => [...prevLinks, ...newLinks])
+      setImagesLinks((prevLinks) => [...prevLinks, ...newLinks]);
     }
-  }
+  };
 
   const handleImageRemove = (e: React.MouseEvent<HTMLDivElement>, url: string) => {
     e.preventDefault()
@@ -36,18 +31,15 @@ const FileUpload = ({
         htmlFor="images"
         className="flex flex-col items-center justify-center p-2 mt-1 text-center border-2 border-dashed border-[rgb(204,207,211)] rounded-lg cursor-pointer transition duration-300 hover:border-[#85858a]"
       >
-        <CloudUpload size={20} className="mb-2" />
-        {!imagesLinks.length
-          ?
+        <CloudUpload size={24} className="mb-2" />
+        {!imagesLinks.length ? (
           <>
-            <span className="mb-1 font-medium text-xs">
-              Выберите файлы
-            </span>
+            <span className="mb-1 font-medium">Выберите файлы</span>
             <span className="text-sm text-[10px] text-[#6E7076]">
-              JPEG или PNG до 5 MB
+              JPG, JPEG или PNG до 5 MB
             </span>
           </>
-          :
+        ) : (
           <div className="w-full flex space-x-2 overflow-y-scroll">
             {
               imagesLinks?.map((imageUrl, idx) => (
@@ -63,7 +55,7 @@ const FileUpload = ({
               ))
             }
           </div>
-        }
+        )}
       </label>
       <Input
         type="file"
@@ -75,7 +67,7 @@ const FileUpload = ({
         onChange={handleImageUpload}
       />
     </div>
-  )
+  );
 };
 
 export default FileUpload;

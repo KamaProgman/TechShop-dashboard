@@ -170,7 +170,9 @@ const ProductForm = ({ type, handleClose, productId }: props) => {
           </SelectTrigger>
           <SelectContent className="max-h-52 overflow-y-auto">
             {subcategories.map((subcategory) => (
-              <SelectItem key={subcategory} value={`${subcategory}`}>{subcategory}</SelectItem>
+              <SelectItem key={subcategory} value={`${subcategory}`}>
+                {subcategory}
+              </SelectItem>
             ))}
           </SelectContent>
         </Select>
@@ -180,7 +182,8 @@ const ProductForm = ({ type, handleClose, productId }: props) => {
         <FileUpload
           register={register}
           setImagesLinks={setImagesLinks}
-          imagesLinks={imagesLinks} />
+          imagesLinks={imagesLinks}
+        />
       </div>
 
       <div className="flex flex-col md:flex-row gap-4">

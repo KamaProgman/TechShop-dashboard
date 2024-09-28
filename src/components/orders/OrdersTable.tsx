@@ -15,6 +15,7 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
+import "../../index.css";
 
 enum OrderStatus {
   Pending = 0,
@@ -66,7 +67,7 @@ export function OrdersTable({ data }: props) {
                     ITEMS
                   </div>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-80 bg-white shadow-lg rounded-md p-4 max-h-96 overflow-y-scroll">
+                <DropdownMenuContent className="w-80 bg-white shadow-lg rounded-md p-4 max-h-96 overflow-y-scroll scrollbar-hide">
                   <h4 className="font-semibold mb-2">Order Items:</h4>
                   <ul>
                     {order.items.map((item) => (

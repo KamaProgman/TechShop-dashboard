@@ -22,15 +22,13 @@ export default function Products() {
           </ActionsDialog>
 
         </div>
-        {!data
-          ?
+        {!data ? (
           <Skeleton className="h-80" />
-          :
+        ) : (
           <Card className="rounded-none max-h-full h-full overflow-scroll scrollbar-hide mb-10">
             <ProductsTable data={data} />
           </Card>
-        }
-
+        )}
       </main>
     </div>
   );

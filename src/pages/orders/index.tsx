@@ -1,4 +1,4 @@
-import { OrdersTable } from "../../components/dashboard/OrdersTable";
+import { OrdersTable } from "../../components/orders/OrdersTable";
 import { OrderStatsCard } from "../../components/orders/Charts";
 import { Card } from "../../components/ui/card";
 import { Skeleton } from "../../components/ui/skeleton";
@@ -19,32 +19,27 @@ export default function Orders() {
           </h1>
         </div>
 
-        {/* Order Stats */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {
-            !data
-              ?
-              [1, 2].map(item => (
-                <Skeleton className="h-[100px] rounded-xl" />
-              ))
-              :
-              <>
-                <OrderStatsCard title="Total Orders" description={data?.length} />
-                <OrderStatsCard
-                  title="New Orders"
-                  description={`${newOrders?.length} this month`}
-                />
-              </>
-          }
+          {!data ? (
+            [1, 2].map((item) => <Skeleton className="h-[100px] rounded-xl" />)
+          ) : (
+            <>
+              <OrderStatsCard title="Total Orders" description={data?.length} />
+              <OrderStatsCard
+                title="New Orders"
+                description={`${newOrders?.length} this month`}
+              />
+            </>
+          )}
         </div>
 
-        {!data
-          ?
+        {!data ? (
           <Skeleton className="h-80" />
-          :
+        ) : (
           <Card className="rounded-none">
             <OrdersTable data={data} />
-          </Card>}
+          </Card>
+        )}
       </main>
     </div>
   );

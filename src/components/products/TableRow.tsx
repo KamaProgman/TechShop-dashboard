@@ -1,4 +1,4 @@
-import { FilePen, Trash } from "lucide-react";
+import { FilePen } from "lucide-react";
 import { Button } from "../ui/button";
 import { TableCell, TableRow } from "../ui/table";
 import { IProduct } from "../../types/product";
@@ -13,7 +13,7 @@ function ProductTableRow({
   price,
   quantity,
   title,
-  id
+  id,
 }: IProduct) {
   return (
     <TableRow>

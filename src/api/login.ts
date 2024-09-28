@@ -1,3 +1,5 @@
+import { toast } from "../lib/hooks/use-toast";
+
 async function Login(email: string, password: string) {
   const apiKey = "AIzaSyC90iTlSGZX82lWufq9yVnSOWDRnpGuYus";
   const url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${apiKey}`;
@@ -19,7 +21,11 @@ async function Login(email: string, password: string) {
   if (response.ok) {
     return user;
   } else {
-    throw new Error(user.error.message);
+    toast({
+      title: "Что то пошло не так!",
+      description: "Эмайл или пароль были введены не правильно",
+      variant: "destructive",
+    });
   }
 }
 
