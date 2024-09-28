@@ -4,6 +4,8 @@ import { Skeleton } from "../../components/ui/skeleton";
 import { useProducts } from "../../lib/hooks/products";
 import "./index.css";
 import AddProductDialog from "../../components/products/AddProductDialog.tsx"; // Импортируем новый компонент
+import { useContext } from "react";
+import UserContext from "../../context/UserContext.tsx";
 
 export default function Products() {
   const { data } = useProducts();
@@ -17,15 +19,13 @@ export default function Products() {
           </h1>
           <AddProductDialog />
         </div>
-        {!data
-          ?
+        {!data ? (
           <Skeleton className="h-80" />
-          :
+        ) : (
           <Card className="rounded-none max-h-full h-full overflow-scroll scrollbar-hide mb-10">
             <ProductsTable data={data} />
           </Card>
-        }
-
+        )}
       </main>
     </div>
   );

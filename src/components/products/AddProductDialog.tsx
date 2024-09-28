@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Button } from "../../components/ui/button";
 import {
   Dialog,
@@ -7,13 +7,15 @@ import {
   DialogTitle,
 } from "../../components/ui/dialog";
 import AddProductForm from "./AddProductForm";
+import UserContext from "../../context/UserContext";
 
 const AddProductDialog = () => {
   const [open, setOpen] = useState(false);
+  const { user } = useContext(UserContext);
 
   const handleClose = () => {
-    setOpen(false)
-  }
+    setOpen(false);
+  };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -22,7 +24,7 @@ const AddProductDialog = () => {
       </DialogTrigger>
       <DialogContent>
         <DialogTitle>Add New Product</DialogTitle>
-        <AddProductForm handleClose={handleClose} />
+        <AddProductForm user={user} handleClose={handleClose} />
       </DialogContent>
     </Dialog>
   );

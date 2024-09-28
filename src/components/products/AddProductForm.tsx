@@ -18,10 +18,11 @@ import FileUpload from "./FileUpload";
 import { useState } from "react";
 
 interface props {
-  handleClose: () => void
+  user: object | null;
+  handleClose: () => void;
 }
 
-const AddProductForm = ({ handleClose }: props) => {
+const AddProductForm = ({ handleClose, user }: props) => {
   const {
     register,
     handleSubmit,
@@ -42,11 +43,16 @@ const AddProductForm = ({ handleClose }: props) => {
       return response;
     },
     onSuccess: (data) => {
-      const transformedData = FirestoreTransformer.transformFirebaseData(data.data)
+      const transformedData = FirestoreTransformer.transformFirebaseData(
+        data.data
+      );
       queryClient.invalidateQueries({ queryKey: ["test"] });
-      queryClient.setQueryData(["products"], (oldData: IProduct[] | undefined) => {
-        return [transformedData, ...(oldData || [])];
-      });
+      queryClient.setQueryData(
+        ["products"],
+        (oldData: IProduct[] | undefined) => {
+          return [transformedData, ...(oldData || [])];
+        }
+      );
 
       console.log("submit happened");
     },
@@ -80,8 +86,8 @@ const AddProductForm = ({ handleClose }: props) => {
 
     addMutation.mutate(newProduct);
     reset();
-    handleClose()
-    setImagesLinks([])
+    handleClose();
+    setImagesLinks([]);
   };
 
   return (
@@ -155,7 +161,9 @@ const AddProductForm = ({ handleClose }: props) => {
           </SelectTrigger>
           <SelectContent className="max-h-52 overflow-y-auto">
             {subcategories.map((subcategory) => (
-              <SelectItem key={subcategory} value={`${subcategory}`}>{subcategory}</SelectItem>
+              <SelectItem key={subcategory} value={`${subcategory}`}>
+                {subcategory}
+              </SelectItem>
             ))}
           </SelectContent>
         </Select>
@@ -165,7 +173,8 @@ const AddProductForm = ({ handleClose }: props) => {
         <FileUpload
           register={register}
           setImagesLinks={setImagesLinks}
-          imagesLinks={imagesLinks} />
+          imagesLinks={imagesLinks}
+        />
       </div>
 
       <div className="flex flex-col md:flex-row gap-4">
@@ -199,7 +208,7 @@ const AddProductForm = ({ handleClose }: props) => {
         </div>
       </div>
 
-      <Button type="submit" className="mt-4">
+      <Button disabled={user ? false : true} type="submit" className="mt-4">
         Add Product
       </Button>
     </form>

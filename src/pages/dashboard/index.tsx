@@ -2,7 +2,7 @@ import { DollarSign, Package, ShoppingCart, Users } from "lucide-react";
 import { MetricsCard } from "../../components/dashboard/MetricsCard";
 import { useOrders } from "../../lib/hooks/orders";
 import { IOrder } from "../../types/order";
-import { OrdersTable } from "../../components/dashboard/OrdersTable";
+import { OrdersTable } from "../../components/orders/OrdersTable";
 import { getDataForLastMonth } from "../../utils/getForLastMonth";
 import { getItems, getTotalItems } from "../../utils/getTotalItems";
 import { Skeleton } from "../../components/ui/skeleton";
