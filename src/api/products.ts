@@ -1,5 +1,6 @@
 import { IProduct } from "../types/product";
 import makeRequest from "./makeRequest";
+import { IdType } from "../types";
 
 const url = "/products";
 
@@ -15,6 +16,13 @@ class ProductApi {
       data: {
         fields: data,
       },
+    });
+  }
+
+  deleteProductById(id: IdType) {
+    return makeRequest({
+      url: `${url}/${id}`,
+      method: "DELETE",
     });
   }
 }

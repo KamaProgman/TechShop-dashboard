@@ -5,12 +5,14 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
-import { useProducts } from "../../lib/hooks/products";
 import ProductTableRow from "./TableRow";
 import { IProduct } from "../../types/product";
 
-const ProductsTable = () => {
-  const { data } = useProducts();
+interface props {
+  data: IProduct[]
+}
+
+const ProductsTable = ({ data }: props) => {
 
   return (
     <Table>

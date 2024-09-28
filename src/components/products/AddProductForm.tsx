@@ -15,8 +15,13 @@ import { getSubcategories, useCategories } from "../../lib/hooks/categories";
 import { ICategory } from "../../types/categories";
 import { FirestoreTransformer } from "../../utils/transformData";
 import FileUpload from "./FileUpload";
+import { useState } from "react";
 
-const AddProductForm = () => {
+interface props {
+  handleClose: () => void
+}
+
+const AddProductForm = ({ handleClose }: props) => {
   const {
     register,
     handleSubmit,
@@ -25,10 +30,9 @@ const AddProductForm = () => {
     setValue,
   } = useForm<ProductFormValues>();
   const queryClient = useQueryClient();
-
   const { data: categories } = useCategories();
-
   const subcategories = getSubcategories(categories ?? []);
+  const [imagesLinks, setImagesLinks] = useState<string[]>([]);
 
   const addMutation = useMutation({
     mutationFn: (newProduct: Partial<IProduct>) => {
@@ -37,8 +41,13 @@ const AddProductForm = () => {
       const response = ProductsApi.addNewProduct(transformedData);
       return response;
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
+      const transformedData = FirestoreTransformer.transformFirebaseData(data.data)
       queryClient.invalidateQueries({ queryKey: ["test"] });
+      queryClient.setQueryData(["products"], (oldData: IProduct[] | undefined) => {
+        return [transformedData, ...(oldData || [])];
+      });
+
       console.log("submit happened");
     },
     onError: (error) => {
@@ -53,30 +62,6 @@ const AddProductForm = () => {
       ?.flatMap((category: ICategory) => category.subcategories)
       .find((subcategory) => subcategory.title === data.category);
 
-    const imageLinks: string[] = [];
-
-    const readFile = (file: File): Promise<string> => {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result as string);
-        reader.onerror = (error) => reject(error);
-      });
-    };
-
-    const imageFields = [data.image1, data.image2, data.image3];
-
-    console.log(data);
-
-    for (const imageField of imageFields) {
-      if (imageField && imageField.length > 0) {
-        const imageFiles = Array.from(imageField);
-        const imagePromises = imageFiles.map((file) => readFile(file));
-        const results = await Promise.all(imagePromises);
-        imageLinks.push(...results);
-      }
-    }
-
     const newProduct: Partial<IProduct> = {
       title: data.title,
       description: data.description,
@@ -88,13 +73,15 @@ const AddProductForm = () => {
         color: data.color,
         specific: [data.specific],
       },
-      images_links: imageLinks,
+      images_links: imagesLinks,
       price: data.price,
       quantity: data.quantity,
     };
 
     addMutation.mutate(newProduct);
     reset();
+    handleClose()
+    setImagesLinks([])
   };
 
   return (
@@ -168,16 +155,17 @@ const AddProductForm = () => {
           </SelectTrigger>
           <SelectContent className="max-h-52 overflow-y-auto">
             {subcategories.map((subcategory) => (
-              <SelectItem value={`${subcategory}`}>{subcategory}</SelectItem>
+              <SelectItem key={subcategory} value={`${subcategory}`}>{subcategory}</SelectItem>
             ))}
           </SelectContent>
         </Select>
       </div>
 
-      <div className="flex flex-3 gap-2">
-        <FileUpload register={register} fieldName="image1" />
-        <FileUpload register={register} fieldName="image2" />
-        <FileUpload register={register} fieldName="image3" />
+      <div>
+        <FileUpload
+          register={register}
+          setImagesLinks={setImagesLinks}
+          imagesLinks={imagesLinks} />
       </div>
 
       <div className="flex flex-col md:flex-row gap-4">

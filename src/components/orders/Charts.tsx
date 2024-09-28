@@ -9,7 +9,6 @@ import {
 interface OrderStatsCardProps {
   title: string;
   description: string;
-  // Pass an optional chart component or other content as children
   children?: React.ReactNode;
 }
 
@@ -24,7 +23,6 @@ export function OrderStatsCard({
         <CardTitle>{title}</CardTitle>
         <CardDescription className="text-xl">{description}</CardDescription>
       </CardHeader>
-      <CardContent>{children}</CardContent>
     </Card>
   );
 }

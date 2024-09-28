@@ -5,15 +5,14 @@ import {
   TableHead,
   TableBody,
 } from "../../components/ui/table";
-import { useUsers } from "../../lib/hooks/users";
 import { IUser } from "../../types/customer";
 import { CustomerTableRow } from "./TableRow";
 
-export const CustomerTable = () => {
-  const { data } = useUsers();
+interface props {
+  data: IUser[]
+}
 
-  console.log(data);
-
+export const CustomerTable = ({ data }: props) => {
   return (
     <Table>
       <TableHeader className="bg-gray-50">
