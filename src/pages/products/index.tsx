@@ -3,7 +3,9 @@ import { Card } from "../../components/ui/card";
 import { Skeleton } from "../../components/ui/skeleton";
 import { useProducts } from "../../lib/hooks/products";
 import "./index.css";
-import AddProductDialog from "../../components/products/AddProductDialog.tsx"; // Импортируем новый компонент
+import ActionsDialog from "../../components/products/ActionsDialog.tsx";
+import ProductForm from "../../components/products/ProductForm.tsx";
+import { Button } from "../../components/ui/button.tsx";
 
 export default function Products() {
   const { data } = useProducts();
@@ -15,7 +17,10 @@ export default function Products() {
           <h1 className="text-3xl font-medium text-gray-700 dark:text-gray-200">
             Products
           </h1>
-          <AddProductDialog />
+          <ActionsDialog title="Add new product" trigger={<Button>Add Product</Button>}>
+            {(handleClose) => <ProductForm type="create" handleClose={handleClose} />}
+          </ActionsDialog>
+
         </div>
         {!data
           ?
