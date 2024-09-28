@@ -11,6 +11,10 @@ import AddProductForm from "./AddProductForm";
 const AddProductDialog = () => {
   const [open, setOpen] = useState(false);
 
+  const handleClose = () => {
+    setOpen(false)
+  }
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -18,7 +22,7 @@ const AddProductDialog = () => {
       </DialogTrigger>
       <DialogContent>
         <DialogTitle>Add New Product</DialogTitle>
-        <AddProductForm />
+        <AddProductForm handleClose={handleClose} />
       </DialogContent>
     </Dialog>
   );

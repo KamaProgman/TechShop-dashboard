@@ -17,7 +17,11 @@ import { FirestoreTransformer } from "../../utils/transformData";
 import FileUpload from "./FileUpload";
 import { useState } from "react";
 
-const AddProductForm = () => {
+interface props {
+  handleClose: () => void
+}
+
+const AddProductForm = ({ handleClose }: props) => {
   const {
     register,
     handleSubmit,
@@ -76,6 +80,7 @@ const AddProductForm = () => {
 
     addMutation.mutate(newProduct);
     reset();
+    handleClose()
     setImagesLinks([])
   };
 

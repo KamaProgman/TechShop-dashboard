@@ -1,6 +1,7 @@
 import { OrdersTable } from "../../components/dashboard/OrdersTable";
 import { OrderStatsCard } from "../../components/orders/Charts";
 import { Card } from "../../components/ui/card";
+import { Skeleton } from "../../components/ui/skeleton";
 import { useOrders } from "../../lib/hooks/orders";
 import { IOrder } from "../../types/order";
 import { getDataForLastMonth } from "../../utils/getForLastMonth";
@@ -20,18 +21,30 @@ export default function Orders() {
 
         {/* Order Stats */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <OrderStatsCard title="Total Orders" description={data?.length} />
-          <OrderStatsCard
-            title="New Orders"
-            description={`${newOrders?.length} this month`}
-          />
-          {/* <OrderStatsCard title="Repeat Customers" description="80%" /> */}
+          {
+            !data
+              ?
+              [1, 2].map(item => (
+                <Skeleton className="h-[100px] rounded-xl" />
+              ))
+              :
+              <>
+                <OrderStatsCard title="Total Orders" description={data?.length} />
+                <OrderStatsCard
+                  title="New Orders"
+                  description={`${newOrders?.length} this month`}
+                />
+              </>
+          }
         </div>
 
-        <Card className="rounded-none">
-          {/* <OrderTable /> */}
-          <OrdersTable data={data} />
-        </Card>
+        {!data
+          ?
+          <Skeleton className="h-80" />
+          :
+          <Card className="rounded-none">
+            <OrdersTable data={data} />
+          </Card>}
       </main>
     </div>
   );
