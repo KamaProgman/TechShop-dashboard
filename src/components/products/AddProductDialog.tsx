@@ -11,7 +11,7 @@ import UserContext from "../../context/UserContext";
 
 const AddProductDialog = () => {
   const [open, setOpen] = useState(false);
-  const { user } = useContext(UserContext);
+  const { userToken } = useContext(UserContext);
 
   const handleClose = () => {
     setOpen(false);
@@ -24,7 +24,7 @@ const AddProductDialog = () => {
       </DialogTrigger>
       <DialogContent>
         <DialogTitle>Add New Product</DialogTitle>
-        <AddProductForm user={user} handleClose={handleClose} />
+        <AddProductForm userToken={userToken} handleClose={handleClose} />
       </DialogContent>
     </Dialog>
   );

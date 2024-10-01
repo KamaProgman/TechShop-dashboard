@@ -33,15 +33,15 @@ const DeleteModal = ({ id, deleteFunction, queryKey }: props) => {
       queryClient.invalidateQueries({ queryKey: [queryKey] });
       setIsOpen(false);
       toast({
-        title: "Успешно!",
-        description: "Товар был успешно удален",
+        title: "Success!",
+        description: "The item was successfully deleted",
         variant: "default",
       });
     },
     onError: () => {
       toast({
-        title: "Что то пошло не так!",
-        description: "Произошла ошибка при удалении товара",
+        title: "Something went wrong!",
+        description: "An error occurred while deleting the item",
         variant: "destructive",
       });
     },

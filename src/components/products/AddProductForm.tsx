@@ -18,11 +18,11 @@ import FileUpload from "./FileUpload";
 import { useState } from "react";
 
 interface props {
-  user: object | null;
+  userToken: string | null;
   handleClose: () => void;
 }
 
-const AddProductForm = ({ handleClose, user }: props) => {
+const AddProductForm = ({ handleClose, userToken }: props) => {
   const {
     register,
     handleSubmit,
@@ -208,7 +208,11 @@ const AddProductForm = ({ handleClose, user }: props) => {
         </div>
       </div>
 
-      <Button disabled={user ? false : true} type="submit" className="mt-4">
+      <Button
+        disabled={userToken ? false : true}
+        type="submit"
+        className="mt-4"
+      >
         Add Product
       </Button>
     </form>

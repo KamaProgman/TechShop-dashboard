@@ -17,8 +17,13 @@ export function Header({
 }: {
   setIsSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const { user } = useContext(UserContext);
-  console.log(user);
+  const { userToken, setUserToken } = useContext(UserContext);
+  console.log(userToken);
+
+  const LogOut = () => {
+    setUserToken(null);
+    localStorage.removeItem("userToken");
+  };
 
   return (
     <header className="flex items-center justify-between px-6 py-4 bg-white dark:bg-gray-800 border-b dark:border-gray-700 w-full">
@@ -45,7 +50,7 @@ export function Header({
       </div>
       <div className="flex items-center">
         <Input type="text" placeholder="Search..." className="mr-4" />
-        {!user ? (
+        {!userToken ? (
           <LoginModal />
         ) : (
           <DropdownMenu>
@@ -63,7 +68,9 @@ export function Header({
               <DropdownMenuSeparator />
               <DropdownMenuItem>Profile</DropdownMenuItem>
               <DropdownMenuItem>Settings</DropdownMenuItem>
-              <DropdownMenuItem>Logout</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => LogOut()}>
+                Logout
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         )}

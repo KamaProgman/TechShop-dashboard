@@ -1,13 +1,13 @@
 import { createContext, Dispatch, SetStateAction } from "react";
 
 interface IUserContext {
-  user: object | null;
-  setUser: Dispatch<SetStateAction<object>>;
+  userToken: string | null;
+  setUserToken: Dispatch<SetStateAction<string | null>>;
 }
 
 const defaultUserContext: IUserContext = {
-  user: null,
-  setUser: () => {},
+  userToken: null,
+  setUserToken: () => {},
 };
 
 const UserContext = createContext<IUserContext>(defaultUserContext);
