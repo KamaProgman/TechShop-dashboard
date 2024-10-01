@@ -9,20 +9,19 @@ import {
 } from "../ui/dropdown-menu";
 import { Button } from "../ui/button";
 import LoginModal from "./LoginModal";
-import { useContext } from "react";
-import UserContext from "../../context/UserContext";
 
 export function Header({
   setIsSidebarOpen,
 }: {
   setIsSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const { userToken, setUserToken } = useContext(UserContext);
+  const userToken = localStorage.getItem("userToken");
+
   console.log(userToken);
 
   const LogOut = () => {
-    setUserToken(null);
     localStorage.removeItem("userToken");
+    window.location.reload();
   };
 
   return (

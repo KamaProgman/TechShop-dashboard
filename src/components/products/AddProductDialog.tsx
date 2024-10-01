@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Button } from "../../components/ui/button";
 import {
   Dialog,
@@ -7,11 +7,10 @@ import {
   DialogTitle,
 } from "../../components/ui/dialog";
 import AddProductForm from "./AddProductForm";
-import UserContext from "../../context/UserContext";
 
 const AddProductDialog = () => {
   const [open, setOpen] = useState(false);
-  const { userToken } = useContext(UserContext);
+  const userToken = localStorage.getItem("userToken");
 
   const handleClose = () => {
     setOpen(false);

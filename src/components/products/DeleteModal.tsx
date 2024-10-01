@@ -7,11 +7,10 @@ import {
 } from "../ui/dialog";
 import { Button } from "../ui/button";
 import { Trash } from "lucide-react";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { IdType } from "../../types";
 import { AxiosPromise } from "axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import UserContext from "../../context/UserContext";
 import { toast } from "../../lib/hooks/use-toast";
 
 interface props {
@@ -24,7 +23,8 @@ const DeleteModal = ({ id, deleteFunction, queryKey }: props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isDeleteEnabled, setIsDeleteEnabled] = useState(false);
   const [countdown, setCountdown] = useState(5);
-  const { user } = useContext(UserContext);
+  const userToken = localStorage.getItem("userToken");
+
   const queryClient = useQueryClient();
 
   const deleteMutation = useMutation({
@@ -99,7 +99,7 @@ const DeleteModal = ({ id, deleteFunction, queryKey }: props) => {
           <Button
             variant="default"
             onClick={handleDelete}
-            disabled={user ? !isDeleteEnabled : true}
+            disabled={userToken ? !isDeleteEnabled : true}
           >
             {isDeleteEnabled ? "Delete" : `Delete in ${countdown} sec`}
           </Button>

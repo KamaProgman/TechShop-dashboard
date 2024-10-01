@@ -4,8 +4,6 @@ import { Button } from "../ui/button";
 import { DialogHeader } from "../ui/dialog";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import Login from "../../api/login";
-import { useContext } from "react";
-import UserContext from "../../context/UserContext";
 
 interface LoginFormValues {
   email: string;
@@ -20,17 +18,14 @@ const LoginForm = () => {
     reset,
   } = useForm<LoginFormValues>();
 
-  const { setUserToken } = useContext(UserContext);
-
   const handleLogin: SubmitHandler<LoginFormValues> = async (data) => {
     const user = await Login(data.email, data.password);
     console.log(user);
 
     if (user) {
-      reset();
       localStorage.setItem("userToken", user.idToken);
-      const userToken: string | null = localStorage.getItem("userToken");
-      setUserToken(userToken);
+      reset();
+      window.location.reload();
     }
   };
 

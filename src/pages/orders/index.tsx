@@ -21,7 +21,7 @@ export default function Orders() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {!data ? (
-            [1, 2].map((item) => <Skeleton className="h-[100px] rounded-xl" />)
+            [1, 2].map(() => <Skeleton className="h-[100px] rounded-xl" />)
           ) : (
             <>
               <OrderStatsCard title="Total Orders" description={data?.length} />
