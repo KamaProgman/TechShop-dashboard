@@ -1,11 +1,5 @@
-<<<<<<< HEAD
-import { OrderStatsCard } from "../../components/orders/Charts";
-import { OrderTable } from "../../components/orders/Table";
-import { Button } from "../../components/ui/button";
-=======
 import { OrdersTable } from "../../components/orders/OrdersTable";
 import { OrderStatsCard } from "../../components/orders/Charts";
->>>>>>> d4f1fbc52dda11b71d99ecb23366483d167f1f0f
 import { Card } from "../../components/ui/card";
 import { Skeleton } from "../../components/ui/skeleton";
 import { useOrders } from "../../lib/hooks/orders";

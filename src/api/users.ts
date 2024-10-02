@@ -4,17 +4,12 @@ import makeRequest from "./makeRequest";
 const url = "/users";
 
 class UsersApi {
-<<<<<<< HEAD
-  async getAll() {
-    return makeRequest({ url });
-=======
   getAll() {
     return makeRequest(url);
   }
 
   getUser(userId: IdType) {
     return makeRequest(url + `/${userId}`);
->>>>>>> d4f1fbc52dda11b71d99ecb23366483d167f1f0f
   }
 
   deleteUser(id: IdType) {
@@ -33,8 +28,4 @@ class UsersApi {
   }
 }
 
-<<<<<<< HEAD
-export default UsersApi;
-=======
 export default new UsersApi();
->>>>>>> d4f1fbc52dda11b71d99ecb23366483d167f1f0f

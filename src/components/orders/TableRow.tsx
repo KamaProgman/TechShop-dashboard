@@ -4,27 +4,15 @@ import { FilePen, Trash } from "lucide-react";
 import { TableCell, TableRow } from "../ui/table";
 import { IOrder } from "../../types/order";
 
-// interface OrderTableRowProps {
-//   orderId: string;
-//   customer: string;
-//   date: string;
-//   total: string;
-//   status: string;
-//   statusVariant: "success" | "danger" | "secondary";
-// }
-
 export function OrderTableRow({
-  // address,
   id,
-  // items,
-  // paymentMethod,
   totalPrice,
-  userId,
+  // userId,
 }: IOrder) {
   return (
     <TableRow>
       <TableCell>{id}</TableCell>
-      <TableCell>{userId}</TableCell>
+      {/* <TableCell>{userId}</TableCell> */}
       <TableCell>date</TableCell>
       <TableCell>{totalPrice}</TableCell>
       <TableCell>
