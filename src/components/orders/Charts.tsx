@@ -1,10 +1,4 @@
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-} from "../ui/card";
+import { Card, CardHeader, CardTitle, CardDescription } from "../ui/card";
 
 interface OrderStatsCardProps {
   title: string;
@@ -12,11 +6,7 @@ interface OrderStatsCardProps {
   children?: React.ReactNode;
 }
 
-export function OrderStatsCard({
-  title,
-  description,
-  children,
-}: OrderStatsCardProps) {
+export function OrderStatsCard({ title, description }: OrderStatsCardProps) {
   return (
     <Card className="flex flex-col">
       <CardHeader>

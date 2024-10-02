@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import ProductsApi from "../../api/products";
 import { FirestoreTransformer } from "../../utils/transformData";
 import { IProduct } from "../../types/product";
+import { IdType } from "../../types";
 
 interface IProductWithDate extends IProduct {
   createdAt: string
@@ -20,4 +21,16 @@ export function useProducts() {
       });
     },
   });
+}
+
+export function useProductById(id: IdType) {
+  return useQuery<IProduct, Error>({
+    queryKey: ["products", id],
+    queryFn: async () => {
+      const response = await ProductsApi.getById(id)
+      const transformedData: IProduct = FirestoreTransformer.transformDocument(response.data)
+
+      return transformedData
+    }
+  })
 }

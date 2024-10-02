@@ -3,7 +3,9 @@ import { Button } from "../ui/button";
 import { TableCell, TableRow } from "../ui/table";
 import { IProduct } from "../../types/product";
 import DeleteModal from "./DeleteModal";
-import ProductApi from "../../api/products";
+import ProductApi from '../../api/products'
+import ActionsDialog from "./ActionsDialog";
+import AddProductForm from "./ProductForm";
 
 function ProductTableRow({
   category,
@@ -28,15 +30,17 @@ function ProductTableRow({
       <TableCell className="text-center">{quantity}шт</TableCell>
       <TableCell>
         <div className="flex items-center justify-end gap-2">
-          <Button variant="ghost" className="bg-transparent border-0">
-            <FilePen className="w-4 h-4" />
-            <span className="sr-only">Edit</span>
-          </Button>
-          <DeleteModal
-            id={id}
-            deleteFunction={ProductApi.deleteProductById}
-            queryKey="products"
-          />
+          <ActionsDialog
+            title="Edit product"
+            trigger={
+              <Button variant="ghost" className="bg-transparent border-0">
+                <FilePen className="w-4 h-4" />
+                <span className="sr-only">Edit</span>
+              </Button>
+            }>
+            {(handleClose) => <AddProductForm type="edit" handleClose={handleClose} productId={id} />}
+          </ActionsDialog>
+          <DeleteModal id={id} deleteFunction={ProductApi.deleteProductById} queryKey="products" />
         </div>
       </TableCell>
     </TableRow>

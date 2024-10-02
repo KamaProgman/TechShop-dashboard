@@ -9,6 +9,10 @@ class ProductApi {
     return makeRequest({ url });
   }
 
+  getById(id: IdType) {
+    return makeRequest({ url: `${url}/${id}` })
+  }
+
   addNewProduct(data: Partial<IProduct>) {
     return makeRequest({
       url,
@@ -17,6 +21,16 @@ class ProductApi {
         fields: data,
       },
     });
+  }
+
+  updateProductById(id: IdType, data: Partial<IProduct>) {
+    return makeRequest({
+      url: `${url}/${id}`,
+      method: "PATCH",
+      data: {
+        fields: data,
+      }
+    })
   }
 
   deleteProductById(id: IdType) {

@@ -1,13 +1,13 @@
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Input } from "../../components/ui/input";
-import { Button } from "../../components/ui/button";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
 import {
   Select,
   SelectTrigger,
   SelectValue,
   SelectContent,
   SelectItem,
-} from "../../components/ui/select";
+} from "../ui/select";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { IProduct, ProductFormValues } from "../../types/product";
 import ProductsApi from "../../api/products";
@@ -15,45 +15,61 @@ import { getSubcategories, useCategories } from "../../lib/hooks/categories";
 import { ICategory } from "../../types/categories";
 import { FirestoreTransformer } from "../../utils/transformData";
 import FileUpload from "./FileUpload";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { IdType } from "../../types";
+import { useProductById } from "../../lib/hooks/products";
 
 interface props {
-  userToken: string | null;
+  type: "create" | "edit";
+  productId?: IdType;
   handleClose: () => void;
 }
 
-const AddProductForm = ({ handleClose, userToken }: props) => {
+const ProductForm = ({ type, handleClose, productId }: props) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
     setValue,
   } = useForm<ProductFormValues>();
   const queryClient = useQueryClient();
   const { data: categories } = useCategories();
   const subcategories = getSubcategories(categories ?? []);
   const [imagesLinks, setImagesLinks] = useState<string[]>([]);
+  const { data: product } = useProductById(productId ?? "");
+  const userToken = localStorage.getItem("userToken");
 
-  const addMutation = useMutation({
+  useEffect(() => {
+    if (type == "edit" && product) {
+      setValue("title", product?.title);
+      setValue("description", product?.description);
+      setValue("color", product?.attributes?.color);
+      setValue(
+        "specific",
+        product?.attributes.specific
+          ? product?.attributes.specific.join(", ")
+          : ""
+      );
+      setValue("price", product?.price);
+      setValue("quantity", product?.quantity);
+      setValue("category", product?.category?.title);
+      setImagesLinks(product?.images_links || []);
+    }
+  }, [product, type, setValue]);
+
+  const actionMutation = useMutation({
     mutationFn: (newProduct: Partial<IProduct>) => {
       const transformedData =
         FirestoreTransformer.toFirestoreFormat(newProduct);
-      const response = ProductsApi.addNewProduct(transformedData);
-      return response;
-    },
-    onSuccess: (data) => {
-      const transformedData = FirestoreTransformer.transformFirebaseData(
-        data.data
-      );
-      queryClient.invalidateQueries({ queryKey: ["test"] });
-      queryClient.setQueryData(
-        ["products"],
-        (oldData: IProduct[] | undefined) => {
-          return [transformedData, ...(oldData || [])];
-        }
-      );
 
+      return type == "create"
+        ? ProductsApi.addNewProduct(transformedData)
+        : ProductsApi.updateProductById(productId!, transformedData);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["products"] });
+
+      handleClose();
       console.log("submit happened");
     },
     onError: (error) => {
@@ -84,10 +100,7 @@ const AddProductForm = ({ handleClose, userToken }: props) => {
       quantity: data.quantity,
     };
 
-    addMutation.mutate(newProduct);
-    reset();
-    handleClose();
-    setImagesLinks([]);
+    actionMutation.mutate(newProduct);
   };
 
   return (
@@ -102,7 +115,7 @@ const AddProductForm = ({ handleClose, userToken }: props) => {
           </label>
           <Input
             {...register("title", { required: "Title is required" })}
-            placeholder="Product Title"
+            placeholder="Macbook Air 13 M2"
             className="w-full"
           />
           {errors.title && (
@@ -117,7 +130,7 @@ const AddProductForm = ({ handleClose, userToken }: props) => {
             {...register("description", {
               required: "Description is required",
             })}
-            placeholder="Product Description"
+            placeholder="some text"
             className="w-full"
           />
           {errors.description && (
@@ -135,7 +148,7 @@ const AddProductForm = ({ handleClose, userToken }: props) => {
           </label>
           <Input
             {...register("color")}
-            placeholder="Product Color"
+            placeholder="product color"
             className="w-full"
           />
         </div>
@@ -145,7 +158,7 @@ const AddProductForm = ({ handleClose, userToken }: props) => {
           </label>
           <Input
             {...register("specific")}
-            placeholder="Product Specifics"
+            placeholder="8-Core CPU, 256GB SSD..."
             className="w-full"
           />
         </div>
@@ -155,7 +168,10 @@ const AddProductForm = ({ handleClose, userToken }: props) => {
         <label htmlFor="category" className="block mb-1">
           Category
         </label>
-        <Select onValueChange={(value) => setValue("category", value)}>
+        <Select
+          onValueChange={(value) => setValue("category", value)}
+          value={product?.category?.title}
+        >
           <SelectTrigger>
             <SelectValue placeholder="Select Category" />
           </SelectTrigger>
@@ -185,7 +201,7 @@ const AddProductForm = ({ handleClose, userToken }: props) => {
           <Input
             type="number"
             {...register("price", { required: "Price is required" })}
-            placeholder="Product Price"
+            placeholder="product price"
             className="w-full"
           />
           {errors.price && (
@@ -199,7 +215,7 @@ const AddProductForm = ({ handleClose, userToken }: props) => {
           <Input
             type="number"
             {...register("quantity", { required: "Quantity is required" })}
-            placeholder="Product Quantity"
+            placeholder="product quantity"
             className="w-full"
           />
           {errors.quantity && (
@@ -208,15 +224,13 @@ const AddProductForm = ({ handleClose, userToken }: props) => {
         </div>
       </div>
 
-      <Button
-        disabled={userToken ? false : true}
-        type="submit"
-        className="mt-4"
-      >
-        Add Product
+      <Button disabled={!userToken} type="submit" className="mt-4 ">
+        {actionMutation.isPending
+          ? "Loading..."
+          : `${type == "create" ? "Add" : "Edit"} product`}
       </Button>
     </form>
   );
 };
 
-export default AddProductForm;
+export default ProductForm;

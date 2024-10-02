@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 import { Input } from "../../components/ui/input";
-import { CloudUpload } from "lucide-react";
+import { CloudUpload, Trash } from "lucide-react";
 import { uploadImages } from "../../lib/actions";
 
 interface props {
@@ -19,6 +19,12 @@ const FileUpload = ({ register, setImagesLinks, imagesLinks }: props) => {
     }
   };
 
+  const handleImageRemove = (e: React.MouseEvent<HTMLDivElement>, url: string) => {
+    e.preventDefault()
+
+    setImagesLinks((prev) => prev.filter((link) => link != url))
+  }
+
   return (
     <div className="flex-1">
       <label
@@ -35,13 +41,19 @@ const FileUpload = ({ register, setImagesLinks, imagesLinks }: props) => {
           </>
         ) : (
           <div className="w-full flex space-x-2 overflow-y-scroll">
-            {imagesLinks?.map((imageUrl, idx) => (
-              <img
-                key={idx}
-                src={imageUrl}
-                className="w-12 h-16 object-cover"
-              />
-            ))}
+            {
+              imagesLinks?.map((imageUrl, idx) => (
+                <div key={idx} className="relative group z-50">
+                  <img src={imageUrl} className="w-16 h-20 object-cover rounded-sm" />
+                  <div
+                    className="w-full h-full bg-accent-foreground/60 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded-sm"
+                    onClick={(e) => handleImageRemove(e, imageUrl)}
+                  >
+                    <Trash size={24} color="#ffffff" />
+                  </div>
+                </div>
+              ))
+            }
           </div>
         )}
       </label>
