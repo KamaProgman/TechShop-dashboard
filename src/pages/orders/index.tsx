@@ -1,15 +1,20 @@
+<<<<<<< HEAD
 import { OrderStatsCard } from "../../components/orders/Charts";
 import { OrderTable } from "../../components/orders/Table";
 import { Button } from "../../components/ui/button";
+=======
+import { OrdersTable } from "../../components/orders/OrdersTable";
+import { OrderStatsCard } from "../../components/orders/Charts";
+>>>>>>> d4f1fbc52dda11b71d99ecb23366483d167f1f0f
 import { Card } from "../../components/ui/card";
+import { Skeleton } from "../../components/ui/skeleton";
 import { useOrders } from "../../lib/hooks/orders";
 import { IOrder } from "../../types/order";
 import { getDataForLastMonth } from "../../utils/getForLastMonth";
 
 export default function Orders() {
-  const { data } = useOrders()
-  const newOrders = getDataForLastMonth<IOrder>(data || [])
-
+  const { data } = useOrders();
+  const newOrders = getDataForLastMonth<IOrder>(data || []);
 
   return (
     <div className="flex flex-col w-full min-h-screen">
@@ -20,17 +25,27 @@ export default function Orders() {
           </h1>
         </div>
 
-        {/* Order Stats */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <OrderStatsCard title="Total Orders" description={data?.length} />
-          <OrderStatsCard title="New Orders" description={`${newOrders?.length} this month`} />
-          {/* <OrderStatsCard title="Repeat Customers" description="80%" /> */}
+          {!data ? (
+            [1, 2].map((item) => <Skeleton className="h-[100px] rounded-xl" />)
+          ) : (
+            <>
+              <OrderStatsCard title="Total Orders" description={data?.length} />
+              <OrderStatsCard
+                title="New Orders"
+                description={`${newOrders?.length} this month`}
+              />
+            </>
+          )}
         </div>
 
-        <Card className="rounded-none">
-          {/* <OrderTable /> */}
-          <OrdersTable data={data} />
-        </Card>
+        {!data ? (
+          <Skeleton className="h-80" />
+        ) : (
+          <Card className="rounded-none">
+            <OrdersTable data={data} />
+          </Card>
+        )}
       </main>
     </div>
   );

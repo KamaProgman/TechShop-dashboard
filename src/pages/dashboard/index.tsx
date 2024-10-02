@@ -1,12 +1,31 @@
 import { DollarSign, Package, ShoppingCart, Users } from "lucide-react";
 import { MetricsCard } from "../../components/dashboard/MetricsCard";
+<<<<<<< HEAD
 import { RecentOrdersTable } from "../../components/dashboard/RecentOrdersTable";
 import { useOrders } from "../../lib/hooks/orders";
+=======
+import { useOrders } from "../../lib/hooks/orders";
+import { IOrder } from "../../types/order";
+import { OrdersTable } from "../../components/orders/OrdersTable";
+import { getDataForLastMonth } from "../../utils/getForLastMonth";
+import { getItems, getTotalItems } from "../../utils/getTotalItems";
+import { Skeleton } from "../../components/ui/skeleton";
+>>>>>>> d4f1fbc52dda11b71d99ecb23366483d167f1f0f
 
 export function Dashboard() {
   const { data } = useOrders();
+  const newOrders = getDataForLastMonth<IOrder>(data || []);
+  const totalRevenue =
+    data?.reduce((sum: number, order: IOrder) => sum + order.totalPrice, 0) ??
+    0;
+  const totalItems = getTotalItems(newOrders ?? []);
+  const products = getItems(newOrders)
 
+<<<<<<< HEAD
   console.log(data);
+=======
+  console.log(products);
+>>>>>>> d4f1fbc52dda11b71d99ecb23366483d167f1f0f
 
   return (
     <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 dark:bg-gray-900">
@@ -16,34 +35,42 @@ export function Dashboard() {
         </h1>
 
         <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <MetricsCard
-            title="Total Revenue"
-            value={totalRevenue + "$"}
-            change="for last month"
-            Icon={DollarSign}
-            path="/"
-          />
-          <MetricsCard
-            title="Orders"
-            value={newOrders?.length}
-            change="for last month"
-            Icon={ShoppingCart}
-            path="/orders"
-          />
-          <MetricsCard
-            title="Products Sold"
-            value={totalItems}
-            change="for last month"
-            Icon={Package}
-            path="/products"
-          />
-          <MetricsCard
-            title="New Customers"
-            value="45"
-            change="for last month"
-            Icon={Users}
-            path="/customers"
-          />
+          {
+            !data ? [1, 2, 3, 4].map(item => (
+              <Skeleton className="h-[125px] rounded-xl" />
+            )) :
+              <>
+                <MetricsCard
+                  title="Total Revenue"
+                  value={totalRevenue + "$"}
+                  change="for last month"
+                  Icon={DollarSign}
+                  path="/"
+                />
+                <MetricsCard
+                  title="Orders"
+                  value={newOrders?.length}
+                  change="for last month"
+                  Icon={ShoppingCart}
+                  path="/orders"
+                />
+                <MetricsCard
+                  title="Products Sold"
+                  value={totalItems}
+                  change="for last month"
+                  Icon={Package}
+                  path="/products"
+                />
+                <MetricsCard
+                  title="New Customers"
+                  value="45"
+                  change="for last month"
+                  Icon={Users}
+                  path="/customers"
+                />
+              </>
+          }
+
         </div>
 
         <div className="mt-8">
@@ -51,7 +78,11 @@ export function Dashboard() {
             Recent Orders
           </h4>
           <div className="mt-4">
-            <OrdersTable data={newOrders} />
+            {!data
+              ?
+              <Skeleton className="h-80" />
+              :
+              <OrdersTable data={newOrders} />}
           </div>
         </div>
       </div>

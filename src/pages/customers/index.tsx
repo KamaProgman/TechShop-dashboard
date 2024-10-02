@@ -2,9 +2,13 @@ import { CustomersGraph } from "../../components/customers/Graph";
 import { CustomerTable } from "../../components/customers/Table";
 import { Button } from "../../components/ui/button";
 import { Card } from "../../components/ui/card";
+import { Skeleton } from "../../components/ui/skeleton";
+import { useUsers } from "../../lib/hooks/users";
 import "./index.css";
 
 export default function Customers() {
+  const { data } = useUsers();
+
   return (
     <div className="flex flex-col w-full min-h-screen">
       <main className="flex flex-1 flex-col scrollbar-hide overflow-y-scroll h-full gap-4 p-4 md:gap-8 md:px-6 md:py-8">
@@ -18,12 +22,17 @@ export default function Customers() {
           <CustomersGraph />
         </div>
         <div>
-          <Card className="rounded-none w-full mb-10">
-            <CustomerTable />
-          </Card>
+          {
+            !data
+              ?
+              <Skeleton className="h-80 rounded-none" />
+              :
+              <Card className="rounded-none w-full mb-10">
+                <CustomerTable data={data} />
+              </Card>
+          }
         </div>
       </main>
     </div>
   );
 }
-  

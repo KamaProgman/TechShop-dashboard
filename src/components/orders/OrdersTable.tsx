@@ -1,6 +1,11 @@
 import { IOrder } from "../../types/order";
 import { Badge } from "../ui/badge";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
 
 import {
   Table,
@@ -10,12 +15,12 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
-
+import "../../index.css";
 
 enum OrderStatus {
   Pending = 0,
   Delievered = 1,
-  Cancelled = 2
+  Cancelled = 2,
 }
 
 const getStatusText = (status: unknown): OrderStatus => {
@@ -23,7 +28,7 @@ const getStatusText = (status: unknown): OrderStatus => {
 };
 
 interface props {
-  data: IOrder[]
+  data: IOrder[];
 }
 
 export function OrdersTable({ data }: props) {
@@ -62,21 +67,31 @@ export function OrdersTable({ data }: props) {
                     ITEMS
                   </div>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-80 bg-white shadow-lg rounded-md p-4 max-h-96 overflow-y-scroll">
+                <DropdownMenuContent className="w-80 bg-white shadow-lg rounded-md p-4 max-h-96 overflow-y-scroll scrollbar-hide">
                   <h4 className="font-semibold mb-2">Order Items:</h4>
                   <ul>
                     {order.items.map((item) => (
                       <DropdownMenuItem key={item.id} className="flex">
-                        <img src={item.images_links[0]} alt="product" className="w-14 object-cover mr-2" />
-                        <span className="text-balance w-full">{item.title}</span>
-                        <span className="font-medium text-indigo-700">{item.cartQuantity}</span>
+                        <img
+                          src={item.images_links[0]}
+                          alt="product"
+                          className="w-14 object-cover mr-2"
+                        />
+                        <span className="text-balance w-full">
+                          {item.title}
+                        </span>
+                        <span className="font-medium text-indigo-700">
+                          {item.cartQuantity}
+                        </span>
                       </DropdownMenuItem>
                     ))}
                   </ul>
                 </DropdownMenuContent>
               </DropdownMenu>
             </TableCell>
-            <TableCell>2024-06-05</TableCell>
+            <TableCell>
+              {new Date(order.createdAt).toISOString().split("T")[0]}
+            </TableCell>
             <TableCell>
               <Badge
                 variant={statusStyles(order.status)}
@@ -85,7 +100,9 @@ export function OrdersTable({ data }: props) {
                 {getStatusText(order.status)}
               </Badge>
             </TableCell>
-            <TableCell className="text-right font-medium text-indigo-500">{order.totalPrice}$</TableCell>
+            <TableCell className="text-right font-medium text-indigo-500">
+              {order.totalPrice}$
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>

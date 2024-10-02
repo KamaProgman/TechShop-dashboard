@@ -13,8 +13,6 @@ export const CustomerTableRow = ({
 }: IUser) => {
   const { data: userOrders } = useCustomerOrders(id);
 
-  console.log(userOrders);
-
   return (
     <TableRow>
       <TableCell>

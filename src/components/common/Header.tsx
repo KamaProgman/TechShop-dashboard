@@ -8,12 +8,18 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { Button } from "../ui/button";
+import LoginModal from "./LoginModal";
+import { useContext } from "react";
+import UserContext from "../../context/UserContext";
 
 export function Header({
   setIsSidebarOpen,
 }: {
   setIsSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
+  const { user } = useContext(UserContext);
+  console.log(user);
+
   return (
     <header className="flex items-center justify-between px-6 py-4 bg-white dark:bg-gray-800 border-b dark:border-gray-700 w-full">
       <div className="flex items-center">
@@ -39,24 +45,28 @@ export function Header({
       </div>
       <div className="flex items-center">
         <Input type="text" placeholder="Search..." className="mr-4" />
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-              <img
-                className="rounded-full"
-                src="/placeholder.svg?height=32&width=32"
-                alt="Avatar"
-              />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>My Account</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>Profile</DropdownMenuItem>
-            <DropdownMenuItem>Settings</DropdownMenuItem>
-            <DropdownMenuItem>Logout</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        {!user ? (
+          <LoginModal />
+        ) : (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+                <img
+                  className="rounded-full"
+                  src="/placeholder.svg?height=32&width=32"
+                  alt="Avatar"
+                />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>Profile</DropdownMenuItem>
+              <DropdownMenuItem>Settings</DropdownMenuItem>
+              <DropdownMenuItem>Logout</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        )}
       </div>
     </header>
   );
