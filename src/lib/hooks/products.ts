@@ -5,7 +5,7 @@ import { IProduct } from "../../types/product";
 import { IdType } from "../../types";
 
 interface IProductWithDate extends IProduct {
-  createdAt: string
+  createdAt: string;
 }
 
 export function useProducts() {
@@ -13,12 +13,9 @@ export function useProducts() {
     queryKey: ["products"],
     queryFn: async () => {
       const response = await ProductsApi.getAll();
-      const transformedData: IProductWithDate[] = FirestoreTransformer.transformFirebaseData(
-        response.data.documents
-      );
-      return transformedData.sort((a, b) => {
-        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
-      });
+      const transformedData: IProductWithDate[] =
+        FirestoreTransformer.transformFirebaseData(response.data.documents);
+      return transformedData;
     },
   });
 }
@@ -27,10 +24,12 @@ export function useProductById(id: IdType) {
   return useQuery<IProduct, Error>({
     queryKey: ["products", id],
     queryFn: async () => {
-      const response = await ProductsApi.getById(id)
-      const transformedData: IProduct = FirestoreTransformer.transformDocument(response.data)
+      const response = await ProductsApi.getById(id);
+      const transformedData: IProduct = FirestoreTransformer.transformDocument(
+        response.data
+      );
 
-      return transformedData
-    }
-  })
+      return transformedData;
+    },
+  });
 }

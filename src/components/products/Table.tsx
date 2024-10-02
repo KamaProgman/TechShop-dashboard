@@ -9,11 +9,10 @@ import ProductTableRow from "./TableRow";
 import { IProduct } from "../../types/product";
 
 interface props {
-  data: IProduct[]
+  data: IProduct[];
 }
 
 const ProductsTable = ({ data }: props) => {
-
   return (
     <Table>
       <TableHeader className="bg-gray-50">

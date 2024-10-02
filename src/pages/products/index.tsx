@@ -17,10 +17,14 @@ export default function Products() {
           <h1 className="text-3xl font-medium text-gray-700 dark:text-gray-200">
             Products
           </h1>
-          <ActionsDialog title="Add new product" trigger={<Button>Add Product</Button>}>
-            {(handleClose) => <ProductForm type="create" handleClose={handleClose} />}
+          <ActionsDialog
+            title="Add new product"
+            trigger={<Button>Add Product</Button>}
+          >
+            {(handleClose) => (
+              <ProductForm type="create" handleClose={handleClose} />
+            )}
           </ActionsDialog>
-
         </div>
         {!data ? (
           <Skeleton className="h-80" />
