@@ -99,7 +99,7 @@ const DeleteModal = ({ id, deleteFunction, queryKey }: props) => {
           <Button
             variant="default"
             onClick={handleDelete}
-            disabled={userToken ? false : true}
+            disabled={userToken ? !isDeleteEnabled : true}
           >
             {isDeleteEnabled ? "Delete" : `Delete in ${countdown} sec`}
           </Button>

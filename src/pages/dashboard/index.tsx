@@ -6,7 +6,7 @@ import { OrdersTable } from "../../components/orders/OrdersTable";
 import { getDataForLastMonth } from "../../utils/getForLastMonth";
 import { getItems, getTotalItems } from "../../utils/getTotalItems";
 import { Skeleton } from "../../components/ui/skeleton";
-
+import "../../index.css";
 export function Dashboard() {
   const { data } = useOrders();
   const newOrders = getDataForLastMonth<IOrder>(data || []);
@@ -19,7 +19,7 @@ export function Dashboard() {
   console.log(products);
 
   return (
-    <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 dark:bg-gray-900">
+    <main className="flex-1 scrollbar-hide overflow-x-hidden overflow-y-auto bg-gray-100 dark:bg-gray-900">
       <div className="container mx-auto px-6 py-8">
         <h1 className="text-gray-700 dark:text-gray-200 text-3xl font-medium">
           Dashboard

@@ -15,7 +15,11 @@ export function useProducts() {
       const response = await ProductsApi.getAll();
       const transformedData: IProductWithDate[] =
         FirestoreTransformer.transformFirebaseData(response.data.documents);
-      return transformedData;
+      return transformedData.sort((a, b) => {
+        return (
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        );
+      });
     },
   });
 }
