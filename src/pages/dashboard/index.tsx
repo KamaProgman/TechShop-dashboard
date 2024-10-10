@@ -37,28 +37,24 @@ export function Dashboard() {
                 value={totalRevenue + "$"}
                 change="for last month"
                 Icon={DollarSign}
-                path="/"
               />
               <MetricsCard
                 title="Orders"
                 value={newOrders?.length}
                 change="for last month"
                 Icon={ShoppingCart}
-                path="/orders"
               />
               <MetricsCard
                 title="Products Sold"
                 value={totalItems}
                 change="for last month"
                 Icon={Package}
-                path="/products"
               />
               <MetricsCard
                 title="New Customers"
                 value="45"
                 change="for last month"
                 Icon={Users}
-                path="/customers"
               />
             </>
           )}

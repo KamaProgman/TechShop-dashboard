@@ -1,5 +1,4 @@
 import { IOrder } from "../types/order";
-import { IProduct } from "../types/product";
 
 export function getTotalItems(orders: IOrder[]): number {
   return orders.reduce((total, order) => {

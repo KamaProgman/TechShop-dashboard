@@ -1,11 +1,9 @@
-import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 
 interface MetricsCardProps {
   title: string;
   value: string | number;
   change: string;
-  path: string;
   Icon: React.ComponentType<{ className?: string }>;
 }
 
@@ -14,9 +12,7 @@ export function MetricsCard({
   value,
   change,
   Icon,
-  path,
 }: MetricsCardProps) {
-  const navigate = useNavigate(); // Initialize the useNavigate hook
 
   return (
     <Card
